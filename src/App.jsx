@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
-import API_BASE from './config';
+
 
 export default function App() {
   const [name, setName] = useState("");
@@ -14,15 +14,11 @@ export default function App() {
   const backendURL = import.meta.env.VITE_BACKEND_URL;
    
 
-fetch(`${API_BASE}/register`, {
-  method: 'POST',
-  headers: {'Content-Type': 'application/json'},
-  body: JSON.stringify(data)
-});
+
 
   function register(e) {
     e.preventDefault();
-    axios.post(`${VITE_BACKEND_URL}/register`, { name, email, password })
+    axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, { name, email, password })
       .then(() => {
         alert("Registered!");
         setMode("login");
@@ -31,7 +27,7 @@ fetch(`${API_BASE}/register`, {
 
   function login(e) {
     e.preventDefault();
-    axios.post(`${VITE_BACKEND_URL}/login`, { email, password })
+    axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, { email, password })
       .then(res => {
         localStorage.setItem("token", res.data.token);
         setToken(res.data.token);
@@ -40,7 +36,7 @@ fetch(`${API_BASE}/register`, {
   }
 
   function getProfile() {
-    axios.get(`${VITE_BACKEND_URL}/profile`, { headers: { Authorization: token } })
+    axios.get(`${import.meta.env.VITE_BACKEND_URL}/profile`, { headers: { Authorization: token } })
       .then(res => setProfile(res.data));
   }
 
